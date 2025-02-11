@@ -1,0 +1,8 @@
+# Ignore everything (folders and files) on root only
+/*
+!apis
+!models
+!static_data
+!.env
+!vercel.json
+!main.py
