@@ -6,4 +6,4 @@ __pycache__
 /.vscode
 .env
 __pycache__/main.cpython-311.pyc
-/models/all_plants/sequential.onnx
+/models/all_plants/Localsequential.onnx
