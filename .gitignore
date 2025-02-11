@@ -1,12 +1,8 @@
 /.plant-aid
-# all kind of __pycache__ directories and in thier files
 __pycache__
 **/__pycache__/*
 /__pycache__
 /.vscode
-.env
+# .env
 __pycache__/main.cpython-311.pyc
-# /models/all_plants/Localsequential.onnx
-.vercel
-
 .vercel
