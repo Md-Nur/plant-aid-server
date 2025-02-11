@@ -36,6 +36,6 @@ async def all_plant_predict(file: UploadFile = File(...)):
 
 
 @app.post("/plant/{plant_name}")
-async def plant_predict(plant_name: str, file: UploadFile = File(...)):
+async def plant_prediction(plant_name: str, file: UploadFile = File(...)):
     prediction = await plant_predict(file, plant_name)
     return prediction
