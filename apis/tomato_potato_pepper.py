@@ -31,6 +31,7 @@ def isPata(image_batch, pata_name):
     predictions = session.run([output_name], {input_name: image_batch})
     predicted_class = pata_class[np.argmax(predictions[0])]
     confidence = np.max(predictions[0])
+    # print(predicted_class, confidence)
     if predicted_class == "others":
         return ["এটা (আলু/টমেটো/মরিচ)পাতা নয়! অন্য কিছু হতে পারে।", confidence]
     elif predicted_class != pata_name:
@@ -63,14 +64,13 @@ async def plant_predict(image_file, plant_name):
     pata = isPata(input_arr, plant_name)
     if pata[0]:
         return {"warn": pata[0], "confidence": float(pata[1] * 100)}
-
-    onnx_model_path = f"models/{plant_name}/sequential_2.onnx"
-    session = ort.InferenceSession(onnx_model_path)
-    input_name = session.get_inputs()[0].name
-    output_name = session.get_outputs()[0].name
-
-    result = session.run([output_name], {input_name: input_arr})
-    tomato_disesases = crop_diseases[plants[plant_name]]["diseases"]
-    predicted_class = tomato_disesases[np.argmax(result[0])]
-    confidence = float(np.max(result[0]))
-    return {"class": predicted_class, "confidence": float(confidence * 100)}
+    else:
+        onnx_model_path = f"models/{plant_name}/sequential_2.onnx"
+        session = ort.InferenceSession(onnx_model_path)
+        input_name = session.get_inputs()[0].name
+        output_name = session.get_outputs()[0].name
+        result = session.run([output_name], {input_name: input_arr})
+        tomato_disesases = crop_diseases[plants[plant_name]]["diseases"]
+        predicted_class = tomato_disesases[np.argmax(result[0])]
+        confidence = float(np.max(result[0]))
+        return {"class": predicted_class, "confidence": float(confidence * 100)}
